@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>test_flask</title>
+    <style>
+        #btn-area {
+            display: grid;
+            grid-template-columns: 50px 50px 50px;
+        }
+        
+        .btn {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border: 1px solid black;
+            margin: 5px
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            let targetElm = document.getElementById("btn-area");
+            for (let i = 0; i < 9; i++) {
+                addDiv(i + 1)
+            }
+            ["+", "-", "*", "/"].forEach((sym) => {
+                addDiv(sym)
+            })
+
+            let elm = document.createElement("div");
+            elm.className = `btn btn-clr`;
+            elm.innerHTML = "clr"
+            elm.onclick = () => {
+                document.getElementsByTagName("input")[0].value = ""
+            }
+            targetElm.appendChild(elm);
+
+            function addDiv(str) {
+                let elm = document.createElement("div");
+                elm.className = `btn btn-${str}`;
+                elm.innerHTML = str
+                elm.onclick = () => {
+                    document.getElementsByTagName("input")[0].value += str
+                }
+                targetElm.appendChild(elm);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form action="/result">
+        <p>{{message}}</p>
+        <input type="text" name="field">
+        <div id="btn-area">
+        </div>
+        <button type="submit" formmethod="get">実行</button>
+    </form>
+</body>
+
+</html>
