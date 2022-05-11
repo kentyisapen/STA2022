@@ -8,13 +8,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html', message="電卓")
+    return render_template('index.html', message="電卓(自然数と加減乗除のみ)")
 
 
 @app.route('/result', methods=["GET"])
 def result_get():
     field = request.args.get("field", "")
-    pat = r'(\d+(\+|\*|\-|\/))+\d+'
+    pat = r'(([1-9]\d*)(\+|\*|\-|\/))+([1-9]\d*)'
     hantei = re.fullmatch(pat, field)
     if hantei == None:
         mes = "計算不可能だよ！！！（もしくは悪意のあるコードかな？）"
